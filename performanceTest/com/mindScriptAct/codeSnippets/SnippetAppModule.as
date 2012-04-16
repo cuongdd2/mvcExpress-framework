@@ -14,6 +14,7 @@ import com.mindScriptAct.codeSnippets.view.keyboard.KeyboardMediator;
 import com.mindScriptAct.codeSnippets.view.SampleAppMediator;
 import com.mindScriptAct.modularSample.modules.console.msg.ConsoleDataMsg;
 import com.mindScriptAct.modularSample.view.ModularSampleMediator;
+import com.mindscriptact.mvcExpressLogger.MvcExpressLogger;
 import flash.display.Sprite;
 import org.mvcexpress.core.ModuleCore;
 import org.mvcexpress.utils.checkClassStringConstants;
@@ -44,7 +45,8 @@ public class SnippetAppModule extends ModuleCore {
 		
 		CONFIG::debug {
 			
-			this.setDebugFunction(trace);
+			//this.setDebugFunction(trace);
+			MvcExpressLogger.logModule(this);
 			
 			checkClassStringConstants(Msg, DataMsg, ViewMsg);
 		}
@@ -100,6 +102,11 @@ public class SnippetAppModule extends ModuleCore {
 	}
 	
 	public function start(mvcExpressSnippets:MvcExpressSnippets):void {
+		
+		CONFIG::debug {
+			MvcExpressLogger.showIn(mvcExpressSnippets.stage, 0, 0, 900);
+		}
+		
 		////////////////////////////
 		// start application...
 		// - mediate mainView object 
@@ -110,9 +117,8 @@ public class SnippetAppModule extends ModuleCore {
 		mediatorMap.mediate(mvcExpressSnippets);
 		//mediatorMap.unmediate(mvcExpressSnippets);
 		
-		
 		mediatorMap.mediateWith(mvcExpressSnippets.stage, KeyboardMediator);
-		
+	
 	}
 	
 	////////////////////////////
